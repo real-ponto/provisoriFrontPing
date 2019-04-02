@@ -3,7 +3,7 @@ import axios from  'axios'
 const resetRelogio = async IP =>{
   let success = false
 
-  await axios.get(`http://${IP}:4000/resetRelogio`)
+  await axios.get(`http://${IP}:4000/resetRelogio`, { timeout:15000})
   .then(function (response) {
     if(response.status === 200){
       success = true

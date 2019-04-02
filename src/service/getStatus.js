@@ -16,7 +16,7 @@ const getStatus = async IP =>{
     success: false 
   }
   
-  await axios.get(`http://${IP}:4000/getStatus`, { timeout:20000} )
+  await axios.get(`http://${IP}:4000/getStatus`, { timeout:15000} )
   .then(function (response) {
     if(response.status === 200){
       responseObject.success = true
