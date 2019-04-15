@@ -6,6 +6,7 @@ import { message, Modal } from 'antd';
 import "antd/dist/antd.css";
 import resetRelogio from './service/reset'
 import getStatus from './service/getStatus'
+import masterReboot from './service/masterReboot'
 import { Spin } from 'antd'
 import { Progress } from 'antd';
 
@@ -83,7 +84,32 @@ class App extends Component {
       message.success('Relógio resetado com sucesso', 10);
     }
     const failed = () => {
-      message.error('Relógio não foi resetado', 10);
+      message.error('Relógio não teve sucesso ao ser resetado', 10);
+    }
+    if (success) {
+      this.setState({
+        loading: false
+      }, deucerto())
+    } else {
+      this.setState({
+        loading: false,
+      }, failed())
+    }
+  }
+
+
+  masterReboot = async () => {
+    const IP = this.state.IP
+    this.setState({
+      loading: true
+    })
+    const success = await masterReboot(IP)
+
+    const deucerto = () => {
+      message.success('Sonoff resetada com sucesso', 10);
+    }
+    const failed = () => {
+      message.error('Sonoff nãa teve sucesso ao ser resetada', 10);
     }
     if (success) {
       this.setState({
@@ -107,13 +133,15 @@ class App extends Component {
       firmwareVersion = '0',
       percent = '0'
     } = data
+
     return (
       <div className='main'>
         <div className="App">
           <div className='div-info'>
             <Input changed={this.setValueToInput} />
-            <Button1 name='Reset' click={this.resetRelogio} changed={this.setValueToInput} />
-            <Button1 name='Status' click={this.getStatus} changed={this.setValueToInput} />
+            <Button1 name='Reset' click={this.resetRelogio} changed={this.setValueToInput} text='Reset relógio'/>
+            <Button1 name='Status' click={this.getStatus} changed={this.setValueToInput} text='Status de conexão'/>
+            <Button1 name='Reboot' click={this.masterReboot} changed={this.setValueToInput} text='Reset da memória Sonoff'/>
             <div className='div-spin'>
               <Spin
                 spinning={this.state.loading}
