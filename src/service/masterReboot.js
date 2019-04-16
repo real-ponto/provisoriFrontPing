@@ -1,9 +1,9 @@
 import axios from  'axios'
 
-const resetRelogio = async IP =>{
+const masterReboot = async IP =>{
   let success = false
 
-  await axios.get(`http://${IP}:4560/resetRelogio`, { timeout:25000})
+  await axios.get(`http://${IP}:4560/masterReboot`, { timeout:25000})
   .then(function (response) {
     if(response.status === 200){
       success = true
@@ -16,4 +16,4 @@ const resetRelogio = async IP =>{
   })
   return success
 }
-export default resetRelogio
+export default masterReboot
