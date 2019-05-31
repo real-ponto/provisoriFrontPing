@@ -141,7 +141,6 @@ class App extends Component {
             <Input changed={this.setValueToInput} />
             <Button1 name='Reset' click={this.resetRelogio} changed={this.setValueToInput} text='Reset relógio'/>
             <Button1 name='Status' click={this.getStatus} changed={this.setValueToInput} text='Status de conexão'/>
-            <Button1 name='Reboot' click={this.masterReboot} changed={this.setValueToInput} text='Reset da memória Sonoff'/>
             <div className='div-spin'>
               <Spin
                 spinning={this.state.loading}
